@@ -1,11 +1,13 @@
-from pyrogram import Client, filters
+from pyrogram import Client, filters, idle
 from pyrogram.errors import FloodWait
- 
-from pyrogram.types import ChatPermissions
- 
-import time
-from time import sleep
-import random
+from pyrogram.types import ChatPermissions, Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
+from time import sleep, perf_counter
+from pyrogram.handlers import MessageHandler
+from covid import Covid
+import time, random, datetime, asyncio, sys, wikipedia, requests, os
+
+# Для логов уберите знак "#"  ниже
+import logging
  
 app = Client("my_account")
  
