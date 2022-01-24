@@ -157,7 +157,7 @@ async def covid_local(client: Client, message: Message):
 def hack(_, msg):
     msg.edit("home userbot\nVersion 0.0.0.0\nCreator @klarlex")
   
-  @app.on_message(filters.command("ping", prefixes=".") & filters.me)
+@app.on_message(filters.command("ping", prefixes=".") & filters.me)
 async def ping(client: Client, message: Message):
     start = perf_counter()
     await message.edit('Pong')
