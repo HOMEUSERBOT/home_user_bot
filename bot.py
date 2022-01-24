@@ -163,6 +163,6 @@ async def ping(client: Client, message: Message):
     await message.edit('Pong')
     end = perf_counter()
     ping = end - start
-    await message.edit(f'<b>🏓 Понг \n📶</b><code> {round(ping, 3)}МС</code>
+    await message.edit(f'<b>🏓 Понг \n📶</b><code> {round(ping, 3)}МС</code>')
                 
 app.run()
