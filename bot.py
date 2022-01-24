@@ -116,5 +116,10 @@ async def covid_local(client: Client, message: Message):
                            f"<b>🚑 Спасенно [Вылеченно]</b>: <code>{local_status['recovered']}</code>\n")
     except ValueError:
         await message.edit(f'<code>There is no region called "{region}"</code>')
+      
+# Информация про бота
+@app.on_message(filters.command("info" , prefixes=".") & filters.me)
+def hack(_, msg):
+    msg.edit("home userbot\nVersion 0.0.0.0\nCreator @klarlex")
                 
 app.run()
