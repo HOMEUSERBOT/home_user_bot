@@ -58,6 +58,7 @@ def hack(_, msg):
 Основные:
 .help - Помощь
 .covid [Страна] - Статистика заражения вирусом covid-19 [Коронавирус]
+.weather погода!
 .ping - пинг
 Процент загрузки:
 .hack - Взлом Пентагонна
@@ -164,5 +165,30 @@ async def ping(client: Client, message: Message):
     end = perf_counter()
     ping = end - start
     await message.edit(f'<b>🏓 Понг \n📶</b><code> {round(ping, 3)}МС</code>')
+    
+    # Погода
+def get_pic(city):
+    file_name = f'{city}.png'
+    with open(file_name, 'wb') as pic:
+        response = requests.get('http://wttr.in/{citys}_2&lang=rus.png', stream=True)
+
+        if not response.ok:
+            print(response)
+
+        for block in response.iter_content(1024):
+            if not block:
+                break
+
+            pic.write(block)
+        return file_name
+
+@app.on_message(filters.command("weather", prefixes=".") & filters.me)
+async def weather(client: Client, message: Message):
+    city = message.command[1]
+    await message.edit("```Processing the request...```")
+    r = requests.get(f"https://wttr.in/{city}?m?M?0?q?T&lang=en")
+    await message.edit(f"```City: {r.text}```")
+    await client.send_document(chat_id=message.chat.id, document=get_pic(city), reply_to_message_id=message.message_id)
+    os.remove(f'{city}.png')
                 
 app.run()
