@@ -190,5 +190,43 @@ async def weather(client: Client, message: Message):
     await message.edit(f"```City: {r.text}```")
     await client.send_document(chat_id=message.chat.id, document=get_pic(city), reply_to_message_id=message.message_id)
     os.remove(f'{city}.png')
-                
+    
+#СПАМ    
+@app.on_message (filters.command("spamt" , prefixes=".") & filters.me)
+async def hello (client, message):
+    global spam
+    spam = 0
+    await message.reply_text("Стартуем :3")
+    while(spam < 1000000):
+        try:
+            await message.reply_text("Спам!!!")
+            spam += 1
+        except FloodWait as e:
+            sleep(e.x)
+
+@app.on_message(filters.command("spams", prefixes="."))
+async def hello (client, message):
+    global spam
+    spam = 0
+    await message.reply_text("Spam started!")
+    while(spam < 1000000):
+        try:
+            await message.reply_text("😡")
+            spam += 1
+        except FloodWait as e:
+            sleep(e.x)
+
+@app.on_message(filters.command("spam", prefixes="."))
+async def hello (client, message):
+    global spam
+    spam = 0
+    await message.reply_text("Spam started!")
+    while(spam < 1000000):
+        try:
+            await message.reply_text("😡")
+            await message.reply_text("Spam")
+            spam += 1
+        except FloodWait as e:
+            sleep(e.x)
+    
 app.run()
